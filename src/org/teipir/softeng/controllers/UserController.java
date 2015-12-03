@@ -14,7 +14,7 @@ public class UserController {
 		
 		conn = SQLHelper.connectDB();
 		
-		String query = "SELECT username, password, usermode FROM Users WHERE username='" + username +"' AND password='" + password + "' AND usermode=" +usermode;
+		String query = "SELECT username, password, usermode FROM users WHERE username='" + username +"' AND password='" + password + "' AND usermode=" +usermode;
 		
 		ResultSet result = SQLHelper.executeQuery(query, conn);
 		

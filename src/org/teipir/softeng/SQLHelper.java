@@ -15,7 +15,7 @@ public class SQLHelper {
 			
 			// JDBC driver name and database URL
 			String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-			String DB_URL = "jdbc:mysql://83.212.118.22:3306/mixaniki";
+			String DB_URL = "jdbc:mysql://83.212.118.22:3306/mixaniki?useUnicode=true&characterEncoding=utf8";
 			//  Database credentials
 			String USER = "sponz";
 			String PASS = "";
@@ -57,6 +57,7 @@ public class SQLHelper {
 			try {
 				stmt = conn.createStatement();
 				int result = stmt.executeUpdate(query);
+				stmt.close();
 				if (result > 0){
 					return true;
 				}

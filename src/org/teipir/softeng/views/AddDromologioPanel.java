@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -12,10 +14,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+
+import org.teipir.softeng.controllers.DromologioController;
 
 public class AddDromologioPanel extends JPanel {
 	
@@ -95,9 +100,29 @@ public class AddDromologioPanel extends JPanel {
 	private JComponent createButtons() {
 		// Components
 		JButton okButton = new JButton("Προσθήκη Δρομολογίου");
+		
+		JPanel framePanel = this;
+		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String proorismos = proorismosField.getText();
+				String anaxwrisi  = anaxwrisiField.getText();
+				Date time = (Date) timeSpinner.getValue();
 				
+				DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+				String wra = dateFormat.format(time);
+				
+				DromologioController dromologio = new DromologioController();
+				boolean prostethike = dromologio.addDromologio(anaxwrisi,proorismos,wra);
+				
+				if (prostethike == true){
+					JOptionPane.showMessageDialog(framePanel,"Το δρομολόγιο προστέθικε επιτυχός!",
+						    "Success",JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(framePanel,"Σφάλμα! Δεν ήταν δυνατή η προσθήκη δρομολογίου",
+						    "Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
