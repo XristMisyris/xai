@@ -50,6 +50,25 @@ public class SQLHelper {
 		return null;
 	}
 	
+	public static boolean executeUpdate(String query, Connection conn){
+		Statement stmt = null;
+		
+		if (conn != null) {
+			try {
+				stmt = conn.createStatement();
+				int result = stmt.executeUpdate(query);
+				if (result > 0){
+					return true;
+				}
+				else return false;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public static void closeConn(Connection conn) {
 		if (conn != null) {
 			try {
