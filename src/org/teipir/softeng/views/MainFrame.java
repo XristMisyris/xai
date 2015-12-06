@@ -22,6 +22,7 @@ public class MainFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setResizable(true);
 	    this.setLocation(400,200);
+	    this.setSize(500,350);
 //	    this.addWindowListener(new WindowAdapter() {
 //	    	@Override
 //	    	public void windowClosed(WindowEvent e) {
@@ -34,7 +35,7 @@ public class MainFrame extends JFrame{
 	    this.add(this.createMainTabbedPanel(mode), BorderLayout.CENTER);
 	    
 	    //Display the window.
-	    this.pack();
+	    //this.pack(); //automatically resize
 	    this.setVisible(true);
 	}
 	
@@ -47,6 +48,8 @@ public class MainFrame extends JFrame{
 			tabbedPane.addTab("Προσθήκη Δρομολογίου", null, tab, "Προσθήκη Δρομολογίο");
 			JComponent tab2 = new EkdosiEisitiriouPanel();
 			tabbedPane.addTab("Έκδοση Εισιτηρίου", null, tab2, "Έκδοση Εισιτηρίου");
+			JComponent tab3 = new AddAnakoinwseisPanel();
+			tabbedPane.addTab("Προσθήκη Ανακοίνωσης", null, tab3, "Προσθήκη Ανακοίνωσης");
 		} else if (mode == TAMIAS_MODE) {
 			JComponent tab2 = new EkdosiEisitiriouPanel();
 			tabbedPane.addTab("Έκδοση Εισιτηρίου", null, tab2, "Έκδοση Εισιτηρίου");

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Locale;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -109,7 +110,8 @@ public class AddDromologioPanel extends JPanel {
 				String anaxwrisi  = anaxwrisiField.getText();
 				Date time = (Date) timeSpinner.getValue();
 				
-				DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+				Locale localeObject = new Locale("en");
+				DateFormat dateFormat = new SimpleDateFormat("hh:mm a",localeObject);
 				String wra = dateFormat.format(time);
 				
 				DromologioController dromologio = new DromologioController();
