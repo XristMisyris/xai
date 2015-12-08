@@ -85,7 +85,7 @@ public class AddAnakoinwseisPanel extends JPanel{
 	
 	private JComponent createButtons() {
 		// Components
-		JButton okButton = new JButton("Προσθήκη Δρομολογίου");
+		JButton okButton = new JButton("Προσθήκη Ανακοίνωσης");
 		
 		JPanel framePanel = this;
 		

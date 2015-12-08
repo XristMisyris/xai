@@ -2,6 +2,8 @@ package org.teipir.softeng.views;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -22,14 +24,12 @@ public class MainFrame extends JFrame{
 		this.setResizable(true);
 	    this.setLocation(400,200);
 	    this.setSize(500,350);
-//	    this.addWindowListener(new WindowAdapter() {
-//	    	@Override
-//	    	public void windowClosed(WindowEvent e) {
-//	    		super.windowClosed(e);
-//	    		sqlManager.close();
-//	    		System.exit(0);
-//	    	}
-//		});
+	    this.addWindowListener(new WindowAdapter() {
+	    	public void windowClosed(WindowEvent e) {
+	    		super.windowClosed(e);
+	    		System.exit(0);
+	    	}
+		});
 	    //Add content to the window.
 	    this.add(this.createMainTabbedPanel(mode), BorderLayout.CENTER);
 	    

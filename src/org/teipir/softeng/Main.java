@@ -4,7 +4,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.teipir.softeng.views.AnakoinwseisFrame;
-import org.teipir.softeng.views.LoginFrame;
 
 
 public class Main {

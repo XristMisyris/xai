@@ -3,6 +3,7 @@ package org.teipir.softeng.controllers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +20,8 @@ public class AnakoinwseisController {
 	}
 	
 	public boolean addAnakoinwsi(String title, String sxolio){
-		Date date = new Date();
 		
-		String query = "INSERT INTO anakoinwseis (title,sxolio,date) VALUES('"+ title +"','" + sxolio + "','" + date + "')";
+		String query = "INSERT INTO anakoinwseis (title,sxolio,date) VALUES('"+ title +"','" + sxolio + "',CURRENT_TIMESTAMP)";
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
@@ -43,7 +43,7 @@ public class AnakoinwseisController {
 				while (resultSet.next()) {
 					String title = resultSet.getString("title");
 					String sxolio = resultSet.getString("sxolio");
-					String date = resultSet.getString("date");
+					Timestamp date = resultSet.getTimestamp("date");
 					Anakoinwsi anak = new Anakoinwsi();
 					anak.setTitle(title);
 					anak.setSxolio(sxolio);

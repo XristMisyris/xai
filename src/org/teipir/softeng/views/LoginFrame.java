@@ -36,6 +36,8 @@ public class LoginFrame extends JFrame {
 	    this.setLocation(400,200);
 
 	    this.add(this.createLoginPanel(), BorderLayout.CENTER);
+	    
+	    this.displayWindow();
 	}
 	
 	public void displayWindow() {

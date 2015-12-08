@@ -1,10 +1,12 @@
 package org.teipir.softeng.models;
 
+import java.util.Date;
+
 public class Anakoinwsi {
 	
 	private String title;
 	private String sxolio;
-	private String date;
+	private Date date;
 	
 	public String getTitle() {
 		return title;
@@ -22,11 +24,11 @@ public class Anakoinwsi {
 		this.sxolio = sxolio;
 	}
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	
