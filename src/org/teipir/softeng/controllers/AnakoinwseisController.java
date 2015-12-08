@@ -1,8 +1,14 @@
 package org.teipir.softeng.controllers;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.teipir.softeng.SQLHelper;
+import org.teipir.softeng.models.Anakoinwsi;
 
 public class AnakoinwseisController {
 	
@@ -13,7 +19,9 @@ public class AnakoinwseisController {
 	}
 	
 	public boolean addAnakoinwsi(String title, String sxolio){
-		String query = "INSERT INTO anakoinwseis (title,sxolio) VALUES('"+ title +"','" + sxolio + "')";
+		Date date = new Date();
+		
+		String query = "INSERT INTO anakoinwseis (title,sxolio,date) VALUES('"+ title +"','" + sxolio + "','" + date + "')";
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
@@ -26,4 +34,27 @@ public class AnakoinwseisController {
 		}
 	}
 
+	public List<Anakoinwsi> getAllAnakoinwseis() {
+		List<Anakoinwsi> anakoinwseis = new ArrayList<Anakoinwsi>();
+		String query = "SELECT title,sxolio,date FROM anakoinwseis";
+		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
+		if (resultSet != null) {
+			try {
+				while (resultSet.next()) {
+					String title = resultSet.getString("title");
+					String sxolio = resultSet.getString("sxolio");
+					String date = resultSet.getString("date");
+					Anakoinwsi anak = new Anakoinwsi();
+					anak.setTitle(title);
+					anak.setSxolio(sxolio);
+					anak.setDate(date);
+					anakoinwseis.add(anak);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return anakoinwseis;
+	} 
+	
 }

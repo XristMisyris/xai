@@ -3,13 +3,14 @@ package org.teipir.softeng;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.teipir.softeng.views.AnakoinwseisFrame;
 import org.teipir.softeng.views.LoginFrame;
 
 
 public class Main {
 
 	private static void ShowGUI() {
-    	LoginFrame frame = new LoginFrame();
+    	AnakoinwseisFrame frame = new AnakoinwseisFrame();
 		frame.displayWindow();
     }
 	
@@ -20,8 +21,6 @@ public class Main {
             	ShowGUI();
             }
         });
-//		UserController users = new UserController();
-//		users.getUsers();
 	}
 
 }

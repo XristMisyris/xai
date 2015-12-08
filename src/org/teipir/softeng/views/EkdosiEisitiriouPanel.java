@@ -20,6 +20,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -42,6 +44,8 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	}
 	
 	private void setUpComponents() {
+		dromologiaCombo.removeAllItems();
+	
 		DromologioController dr = new DromologioController();
 		
 		List<Dromologio> dromologia = dr.getAllDromologia();
@@ -80,6 +84,19 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		dromologiaPanel.add(dromologiaLabel);
 		dromologiaPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		dromologiaPanel.add(dromologiaCombo);
+		
+		dromologiaCombo.addPopupMenuListener(new PopupMenuListener(){
+			 public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
+				 //System.out.println("Becoming Visible");
+				 setUpComponents();
+			 }
+			 public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
+				 //System.out.println("Becoming InVisible");
+			 }
+			 public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
+				 //System.out.println("Becoming Visible");
+			 }
+		});
 		
 		return dromologiaPanel;
 	}
