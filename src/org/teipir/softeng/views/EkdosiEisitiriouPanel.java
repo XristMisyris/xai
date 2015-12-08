@@ -57,7 +57,7 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	private JComponent createEkdosiPanel() {
 		JPanel ekdosiPanel = new JPanel();
 		ekdosiPanel.setLayout(new BoxLayout(ekdosiPanel, BoxLayout.Y_AXIS));
-		ekdosiPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		ekdosiPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		setUpComponents();
 		

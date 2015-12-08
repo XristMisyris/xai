@@ -22,6 +22,8 @@ import javax.swing.SwingUtilities;
 
 import org.teipir.softeng.controllers.AnakoinwseisController;
 import org.teipir.softeng.models.Anakoinwsi;
+import java.awt.Font;
+import javax.swing.JSeparator;
 
 public class AnakoinwseisFrame extends JFrame{
 	
@@ -46,52 +48,65 @@ public class AnakoinwseisFrame extends JFrame{
 	private JComponent createAnakoinwseisPanel() {
 		JPanel anakPanel = new JPanel();
 		anakPanel.setLayout(new BoxLayout(anakPanel, BoxLayout.Y_AXIS));
-		anakPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		anakPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		AnakoinwseisController ac = new AnakoinwseisController();
 		
 		List<Anakoinwsi> anakinwseis = ac.getAllAnakoinwseis();
 		for (Anakoinwsi anakinwsi : anakinwseis) {
-			anakPanel.add(this.createLabel(anakinwsi.getTitle()));
 			anakPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-			anakPanel.add(this.createLabelWra(anakinwsi.getDate()));
+			anakPanel.add(this.createUpper(anakinwsi.getTitle(),anakinwsi.getDate()));
 			anakPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-			anakPanel.add(this.createLabel(anakinwsi.getSxolio()));
+			anakPanel.add(this.createSxolio(anakinwsi.getSxolio()));
+			anakPanel.add(new JSeparator());
 		}
 		
+		anakPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		anakPanel.add(this.createButtons());
 	
 		return anakPanel;
 	}
 	
-	private JComponent createLabel(String title) {
+	private JComponent createUpper(String title,Date wra) {
 		// Components
 		JLabel titleLabel = new JLabel(title);
+		JLabel diaxwristikoLabel = new JLabel(" - ");
 		
-		// Panel
-		JPanel titlePanel = new JPanel();
-		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
-		titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-		titlePanel.add(titleLabel);
-		
-		return titlePanel;
-	}
-	
-	private JComponent createLabelWra(Date wra) {	
-		// Components
 		Locale locale = new Locale("el", "GR");
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY HH:mm a",locale);
 		String time = dateFormat.format(wra);
 		
-		JLabel titleLabel = new JLabel(time);
+		JLabel timeLabel = new JLabel(time);
+		
+		titleLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		timeLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		diaxwristikoLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 		// Panel
 		JPanel titlePanel = new JPanel();
-		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
 		titlePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
 		titlePanel.add(titleLabel);
+		titlePanel.add(Box.createRigidArea(new Dimension(10, 10)));
+		titlePanel.add(diaxwristikoLabel);
+		titlePanel.add(Box.createRigidArea(new Dimension(10, 10)));
+		titlePanel.add(timeLabel);
 		
 		return titlePanel;
+	}
+	
+	private JComponent createSxolio(String title) {
+		// Components
+		JLabel sxoliaLabel = new JLabel(title);
+		sxoliaLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		// Panel
+		JPanel sxoliaPanel = new JPanel();
+		sxoliaPanel.setLayout(new BoxLayout(sxoliaPanel, BoxLayout.LINE_AXIS));
+		sxoliaPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		sxoliaPanel.add(sxoliaLabel);
+		
+		return sxoliaPanel;
 	}
 	
 	private JComponent createButtons() {

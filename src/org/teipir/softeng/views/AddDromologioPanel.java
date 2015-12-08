@@ -39,7 +39,7 @@ public class AddDromologioPanel extends JPanel {
 	private JComponent createLoginPanel() {
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
-		loginPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		loginPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		loginPanel.add(this.createAnaxwrisi());
 		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));

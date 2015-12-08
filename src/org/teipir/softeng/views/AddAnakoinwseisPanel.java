@@ -39,7 +39,7 @@ public class AddAnakoinwseisPanel extends JPanel{
 	private JComponent createAnakoinwseisPanel() {
 		JPanel anakoinwseisPanel = new JPanel();
 		anakoinwseisPanel.setLayout(new BoxLayout(anakoinwseisPanel, BoxLayout.Y_AXIS));
-		anakoinwseisPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		anakoinwseisPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		anakoinwseisPanel.add(this.createTitle());
 		anakoinwseisPanel.add(Box.createRigidArea(new Dimension(0, 10)));
