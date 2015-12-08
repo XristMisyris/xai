@@ -9,8 +9,7 @@ import org.teipir.softeng.views.AnakoinwseisFrame;
 public class Main {
 
 	private static void ShowGUI() {
-    	AnakoinwseisFrame frame = new AnakoinwseisFrame();
-		frame.displayWindow();
+		new AnakoinwseisFrame();
     }
 	
 	public static void main(String[] args) {

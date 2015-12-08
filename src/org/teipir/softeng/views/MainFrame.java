@@ -9,6 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import org.teipir.softeng.views.AddDromologioPanel;
 import org.teipir.softeng.views.EkdosiEisitiriouPanel;
@@ -27,7 +28,12 @@ public class MainFrame extends JFrame{
 	    this.addWindowListener(new WindowAdapter() {
 	    	public void windowClosed(WindowEvent e) {
 	    		super.windowClosed(e);
-	    		System.exit(0);
+	    		SwingUtilities.invokeLater(new Runnable() {
+		            public void run() {
+		            	new AnakoinwseisFrame();
+		            }
+		        });
+	    		//System.exit(0);
 	    	}
 		});
 	    //Add content to the window.

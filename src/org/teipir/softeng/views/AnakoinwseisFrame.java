@@ -34,6 +34,8 @@ public class AnakoinwseisFrame extends JFrame{
 	    this.setLocation(400,200);
 
 	    this.add(this.createAnakoinwseisPanel(), BorderLayout.CENTER);
+	    
+	    this.displayWindow();
 	}
 	
 	public void displayWindow() {
