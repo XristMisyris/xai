@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -18,6 +20,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,20 +35,30 @@ import org.teipir.softeng.controllers.DromologioController;
 import org.teipir.softeng.controllers.EisitirioController;
 import org.teipir.softeng.models.Dromologio;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class EkdosiEisitiriouPanel extends JPanel{
 	
 	private JComboBox dromologiaCombo = new JComboBox();
-	private UtilDateModel model = new UtilDateModel();
-	JRadioButton kanonikoButton = new JRadioButton("Κανονικό");
-	JRadioButton foititikoButton = new JRadioButton("Φοιτητικό/Στρατιοτητό");
 	
-	JDatePickerImpl datePicker = null;
-	List<Dromologio> dromologia = null;
+	private List<String> theseis = new ArrayList<String>();
+	private Object[] theseisObj = setTheseis();
+	private JComboBox thesiCombo = new JComboBox(theseisObj);
+	
+	private UtilDateModel model = new UtilDateModel();
+	private JRadioButton kanonikoButton = new JRadioButton("Κανονικό");
+	private JRadioButton foititikoButton = new JRadioButton("Φοιτητικό/Στρατιοτητό");
+	
+	private JDatePickerImpl datePicker = null;
+	private List<Dromologio> dromologia = null;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JPanel ekdosiPanel = new JPanel();
+	
 	
 	public EkdosiEisitiriouPanel() {
 		super();
 		
+		this.setTheseis();
 		this.add(this.createEkdosiPanel(), BorderLayout.CENTER);
 	}
 	
@@ -66,7 +79,7 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	}
 
 	private JComponent createEkdosiPanel() {
-		JPanel ekdosiPanel = new JPanel();
+		this.ekdosiPanel = new JPanel();
 		ekdosiPanel.setLayout(new BoxLayout(ekdosiPanel, BoxLayout.Y_AXIS));
 		ekdosiPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
@@ -74,9 +87,11 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		
 		ekdosiPanel.add(this.selectDromologio());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		ekdosiPanel.add(this.createMera());
+		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		ekdosiPanel.add(this.createTipos());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-		ekdosiPanel.add(this.createMera());
+		ekdosiPanel.add(this.createThesi());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		ekdosiPanel.add(this.createButtons());
 		
@@ -124,6 +139,8 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		tiposPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 		tiposPanel.add(kanonikoButton);
 		tiposPanel.add(foititikoButton);
+		buttonGroup.add(foititikoButton);
+		buttonGroup.add(kanonikoButton);
 		
 		return tiposPanel;
 	}
@@ -138,20 +155,38 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		p.put("text.year", "Year");
 		
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		
+		Date date = new Date();
+	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    String reportDate = df.format(date);
+		
+		this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker.getJFormattedTextField().setText(reportDate);
 		
 		// Panel
 		JPanel meraPanel = new JPanel();
+		meraPanel.setLayout(new BoxLayout(meraPanel, BoxLayout.X_AXIS));
+		meraPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		meraPanel.add(meraLabel);
-		meraPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+		meraPanel.add(Box.createRigidArea(new Dimension(32, 0)));
 		meraPanel.add(datePicker);
 		
 		return meraPanel;
 	}
 
-	private Component createThesi() {
+	private JComponent createThesi() {
+		// Components
+		JLabel thesiLabel = new JLabel("Θέση : ");
 		
-		return null;
+		// Panel
+		JPanel thesiPanel = new JPanel();
+		thesiPanel.setLayout(new BoxLayout(thesiPanel, BoxLayout.X_AXIS));
+		thesiPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		thesiPanel.add(thesiLabel);
+		thesiPanel.add(Box.createRigidArea(new Dimension(39, 0)));
+		thesiPanel.add(thesiCombo);
+		
+		return thesiPanel;
 	}
 
 	private JComponent createButtons() {
@@ -162,14 +197,14 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    int selectedDromologio = dromologiaCombo.getSelectedIndex() + 1;
+			    int selectedDromologio = dromologiaCombo.getSelectedIndex();
+			    int thesi = thesiCombo.getSelectedIndex() + 1;
 			    
 			    String anaxwrisi = dromologia.get(selectedDromologio).getAnaxwrisi();
 			    String proorismos = dromologia.get(selectedDromologio).getProorismos();
 			    Date wra = dromologia.get(selectedDromologio).getWra();
 			    
-			    //need fix
-			    int thesi = 0;
+			    String reportDate = datePicker.getJFormattedTextField().getText();
 			    
 			    int tiposEisitirio = 0;
 			    double timi = 0;
@@ -188,16 +223,15 @@ public class EkdosiEisitiriouPanel extends JPanel{
 			    	timi = dromologia.get(selectedDromologio).getFoititikiTimi();
 			    
 				EisitirioController dromologio = new EisitirioController();
-				boolean prostethike = dromologio.addEisitirio(anaxwrisi,proorismos,wra,thesi,tiposEisitirio,timi);
+				boolean prostethike = dromologio.addEisitirio(anaxwrisi,proorismos,reportDate,thesi,tiposEisitirio,timi);
+				
+				dromologio.createEisitirioFrame(anaxwrisi,proorismos,wra,reportDate,thesi,tiposEisitirio,timi);
 			    
-				if (prostethike == true){
-					JOptionPane.showMessageDialog(framePanel,"Το εισιτήριο εκδόθηκε επιτυχώς!",
-						    "Success",JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
+				if (prostethike == false){
 					JOptionPane.showMessageDialog(framePanel,"Σφάλμα! Δεν ήταν δυνατή η έκδοση εισιτηρίου",
 						    "Error",JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
 		});
 		
@@ -208,5 +242,13 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		component.add(okButton);
 		
 		return component;
+	}
+	
+	private Object[] setTheseis(){
+		for(int i=1; i<=49; i++){
+			theseis.add(Integer.toString(i));
+		}
+		Object[] obj = theseis.toArray();
+		return obj;
 	}
 }
