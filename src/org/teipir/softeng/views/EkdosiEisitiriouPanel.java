@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,14 +29,19 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import org.teipir.softeng.DateLabelFormatter;
 import org.teipir.softeng.controllers.DromologioController;
+import org.teipir.softeng.controllers.EisitirioController;
 import org.teipir.softeng.models.Dromologio;
+import javax.swing.JRadioButton;
 
 public class EkdosiEisitiriouPanel extends JPanel{
 	
 	private JComboBox dromologiaCombo = new JComboBox();
 	private UtilDateModel model = new UtilDateModel();
+	JRadioButton kanonikoButton = new JRadioButton("Κανονικό");
+	JRadioButton foititikoButton = new JRadioButton("Φοιτητικό/Στρατιοτητό");
 	
 	JDatePickerImpl datePicker = null;
+	List<Dromologio> dromologia = null;
 	
 	public EkdosiEisitiriouPanel() {
 		super();
@@ -48,9 +54,14 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	
 		DromologioController dr = new DromologioController();
 		
-		List<Dromologio> dromologia = dr.getAllDromologia();
+		this.dromologia = dr.getAllDromologia();
 		for (Dromologio dromologio : dromologia) {
-			dromologiaCombo.addItem(dromologio.getAfiksi() + "-" + dromologio.getProorismos() + "-" + dromologio.getWra());
+			
+			Date wra = dromologio.getWra();
+			SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+			String time = formatter.format(wra);
+			
+			dromologiaCombo.addItem(dromologio.getAnaxwrisi() + "-" + dromologio.getProorismos() + " - " + time);
 		}
 	}
 
@@ -63,7 +74,7 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		
 		ekdosiPanel.add(this.selectDromologio());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-		//ekdosiPanel.add(this.createThesi());
+		ekdosiPanel.add(this.createTipos());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		ekdosiPanel.add(this.createMera());
 		ekdosiPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -79,8 +90,8 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		
 		// Panel
 		JPanel dromologiaPanel = new JPanel();
-		dromologiaPanel.setLayout(new BoxLayout(dromologiaPanel, BoxLayout.LINE_AXIS));
-		dromologiaPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 10, 10));
+		dromologiaPanel.setLayout(new BoxLayout(dromologiaPanel, BoxLayout.X_AXIS));
+		dromologiaPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		dromologiaPanel.add(dromologiaLabel);
 		dromologiaPanel.add(Box.createRigidArea(new Dimension(5, 0)));
 		dromologiaPanel.add(dromologiaCombo);
@@ -101,6 +112,22 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		return dromologiaPanel;
 	}
 	
+	private JComponent createTipos() {
+		// Components
+		JLabel tiposLabel = new JLabel("Τύπος : ");
+		
+		// Panel
+		JPanel tiposPanel = new JPanel();
+		tiposPanel.setLayout(new BoxLayout(tiposPanel, BoxLayout.X_AXIS));
+		tiposPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		tiposPanel.add(tiposLabel);
+		tiposPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+		tiposPanel.add(kanonikoButton);
+		tiposPanel.add(foititikoButton);
+		
+		return tiposPanel;
+	}
+	
 	private JComponent createMera() {
 		// Components
 		JLabel meraLabel = new JLabel("Ημέρα : ");
@@ -116,7 +143,7 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		// Panel
 		JPanel meraPanel = new JPanel();
 		meraPanel.add(meraLabel);
-		meraPanel.add(Box.createRigidArea(new Dimension(23, 0)));
+		meraPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		meraPanel.add(datePicker);
 		
 		return meraPanel;
@@ -135,14 +162,36 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean prostethike = true;//temp
-				
-				Date selectedDate = (Date)datePicker.getModel().getValue();
-			    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			    String reportDate = df.format(selectedDate);
-				
+			    int selectedDromologio = dromologiaCombo.getSelectedIndex() + 1;
+			    
+			    String anaxwrisi = dromologia.get(selectedDromologio).getAnaxwrisi();
+			    String proorismos = dromologia.get(selectedDromologio).getProorismos();
+			    Date wra = dromologia.get(selectedDromologio).getWra();
+			    
+			    //need fix
+			    int thesi = 0;
+			    
+			    int tiposEisitirio = 0;
+			    double timi = 0;
+			   
+			    if(kanonikoButton.isSelected()){
+			    	tiposEisitirio = 0;
+			    }
+			    else if(foititikoButton.isSelected()){
+			    	tiposEisitirio = 1;
+			    }
+			    
+			    if(tiposEisitirio == 0){
+			    	timi = dromologia.get(selectedDromologio).getKanonikiTimi();
+			    }
+			    else
+			    	timi = dromologia.get(selectedDromologio).getFoititikiTimi();
+			    
+				EisitirioController dromologio = new EisitirioController();
+				boolean prostethike = dromologio.addEisitirio(anaxwrisi,proorismos,wra,thesi,tiposEisitirio,timi);
+			    
 				if (prostethike == true){
-					JOptionPane.showMessageDialog(framePanel,reportDate,
+					JOptionPane.showMessageDialog(framePanel,"Το εισιτήριο εκδόθηκε επιτυχώς!",
 						    "Success",JOptionPane.INFORMATION_MESSAGE);
 				}
 				else{
@@ -155,11 +204,9 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		// Panel
 		JPanel component = new JPanel();
 		component.setLayout(new BoxLayout(component, BoxLayout.LINE_AXIS));
-		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		component.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		component.add(okButton);
 		
 		return component;
 	}
-
-
 }

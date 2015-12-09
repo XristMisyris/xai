@@ -27,6 +27,8 @@ public class AddDromologioPanel extends JPanel {
 	
 	private JTextField proorismosField = new JTextField(20);
 	private JTextField anaxwrisiField = new JTextField(20);
+	private JTextField kanonikoField = new JTextField(20);
+	private JTextField foititikoField = new JTextField(20);
 	private JSpinner timeSpinner = new JSpinner( new SpinnerDateModel() );
 	
 	public AddDromologioPanel() {
@@ -45,6 +47,10 @@ public class AddDromologioPanel extends JPanel {
 		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		loginPanel.add(this.createProorismos());
 		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		loginPanel.add(this.createKanoniko());
+		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		loginPanel.add(this.createFoititiko());
+		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		loginPanel.add(this.createOra());
 		loginPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		loginPanel.add(this.createButtons());
@@ -61,7 +67,7 @@ public class AddDromologioPanel extends JPanel {
 		component.setLayout(new BoxLayout(component, BoxLayout.LINE_AXIS));
 		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		component.add(label);
-		component.add(Box.createRigidArea(new Dimension(34, 0)));
+		component.add(Box.createRigidArea(new Dimension(33, 0)));
 		component.add(proorismosField);
 		return component;
 	}
@@ -77,6 +83,34 @@ public class AddDromologioPanel extends JPanel {
 		component.add(label);
 		component.add(Box.createRigidArea(new Dimension(42, 0)));
 		component.add(anaxwrisiField);
+		return component;
+	}
+	
+	private JComponent createKanoniko() {
+		// Components
+		JLabel label = new JLabel("Τιμή Κανονικού : ");
+		
+		// Panel
+		JPanel component = new JPanel();
+		component.setLayout(new BoxLayout(component, BoxLayout.LINE_AXIS));
+		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		component.add(label);
+		component.add(Box.createRigidArea(new Dimension(17, 0)));
+		component.add(kanonikoField);
+		return component;
+	}
+	
+	private JComponent createFoititiko() {
+		// Components
+		JLabel label = new JLabel("Τιμή Φοιτητηκού : ");
+		
+		// Panel
+		JPanel component = new JPanel();
+		component.setLayout(new BoxLayout(component, BoxLayout.LINE_AXIS));
+		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		component.add(label);
+		component.add(Box.createRigidArea(new Dimension(9, 0)));
+		component.add(foititikoField);
 		return component;
 	}
 	
@@ -108,14 +142,16 @@ public class AddDromologioPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String proorismos = proorismosField.getText();
 				String anaxwrisi  = anaxwrisiField.getText();
+				double kanonikiTimi = Double.parseDouble(kanonikoField.getText());
+				double foititikiTimi  = Double.parseDouble(foititikoField.getText());
 				Date time = (Date) timeSpinner.getValue();
 				
 				Locale localeObject = new Locale("en");
-				DateFormat dateFormat = new SimpleDateFormat("hh:mm a",localeObject);
+				DateFormat dateFormat = new SimpleDateFormat("HH:mm",localeObject);
 				String wra = dateFormat.format(time);
 				
 				DromologioController dromologio = new DromologioController();
-				boolean prostethike = dromologio.addDromologio(anaxwrisi,proorismos,wra);
+				boolean prostethike = dromologio.addDromologio(anaxwrisi,proorismos,wra,kanonikiTimi,foititikiTimi);
 				
 				if (prostethike == true){
 					JOptionPane.showMessageDialog(framePanel,"Το δρομολόγιο προστέθικε επιτυχός!",

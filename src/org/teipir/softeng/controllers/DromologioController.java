@@ -3,6 +3,7 @@ package org.teipir.softeng.controllers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class DromologioController {
 		conn = SQLHelper.connectDB();
 	}
 	
-	public boolean addDromologio(String anaxwrisi, String proorismos, String wra){
-		String query = "INSERT INTO dromologia (anaxwrisi,proorismos,wra) VALUES('"+ anaxwrisi +"','" + proorismos + "','" + wra + "')";
+	public boolean addDromologio(String anaxwrisi, String proorismos, String wra,double kanonikiTimi,double foititikiTimi){
+		String query = "INSERT INTO dromologia (anaxwrisi,proorismos,wra,kanonikiTimi,foititikiTimi) VALUES('"+ anaxwrisi +"','" + proorismos + "','" + wra + "','" + kanonikiTimi + "','" + foititikiTimi + "')";
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
@@ -33,18 +34,24 @@ public class DromologioController {
 	
 	public List<Dromologio> getAllDromologia() {
 		List<Dromologio> dromologia = new ArrayList<Dromologio>();
-		String query = "SELECT anaxwrisi,proorismos,wra FROM dromologia";
+		String query = "SELECT anaxwrisi,proorismos,wra,kanonikiTimi,foititikiTimi FROM dromologia";
 		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
 		if (resultSet != null) {
 			try {
 				while (resultSet.next()) {
 					String anaxwrisi = resultSet.getString("anaxwrisi");
 					String proorismos = resultSet.getString("proorismos");
-					String wra = resultSet.getString("wra");
+					Time wra = resultSet.getTime("wra");
+					double kanonikiTimi = resultSet.getDouble("kanonikiTimi");
+					double foititikiTimi = resultSet.getDouble("kanonikiTimi");
+					
 					Dromologio drom = new Dromologio();
-					drom.setAfiksi(anaxwrisi);
+					
+					drom.setAnaxwrisi(anaxwrisi);
 					drom.setProorismos(proorismos);
 					drom.setWra(wra);
+					drom.setKanonikiTimi(kanonikiTimi);
+					drom.setFoititikiTimi(foititikiTimi);
 					dromologia.add(drom);
 				}
 			} catch (SQLException e) {

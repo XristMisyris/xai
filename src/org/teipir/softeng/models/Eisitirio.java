@@ -2,26 +2,26 @@ package org.teipir.softeng.models;
 
 public class Eisitirio {
 	
-	private String arithmosThesis;
-	private String tiposEisitiriou;
+	private int arithmosThesis;
+	private int tiposEisitiriou;
 	private String anaxwrisi;
 	private String proorismos;
 	private Double timi;
 	private String date;
 	
-	public String getArithmosThesis() {
+	public int getArithmosThesis() {
 		return arithmosThesis;
 	}
 	
-	public void setArithmosThesis(String arithmosThesis) {
+	public void setArithmosThesis(int arithmosThesis) {
 		this.arithmosThesis = arithmosThesis;
 	}
 	
-	public String getTiposEisitiriou() {
+	public int getTiposEisitiriou() {
 		return tiposEisitiriou;
 	}
 	
-	public void setTiposEisitiriou(String tiposEisitiriou) {
+	public void setTiposEisitiriou(int tiposEisitiriou) {
 		this.tiposEisitiriou = tiposEisitiriou;
 	}
 	

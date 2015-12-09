@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -51,8 +52,10 @@ public class AnakoinwseisFrame extends JFrame{
 		anakPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		AnakoinwseisController ac = new AnakoinwseisController();
-		
+
 		List<Anakoinwsi> anakinwseis = ac.getAllAnakoinwseis();
+		Collections.reverse(anakinwseis);
+		
 		for (Anakoinwsi anakinwsi : anakinwseis) {
 			anakPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 			anakPanel.add(this.createUpper(anakinwsi.getTitle(),anakinwsi.getDate()));
@@ -126,7 +129,7 @@ public class AnakoinwseisFrame extends JFrame{
 		// Panel
 		JPanel component = new JPanel();
 		component.setLayout(new BoxLayout(component, BoxLayout.LINE_AXIS));
-		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		component.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		component.add(okButton);
 
 		return component;
