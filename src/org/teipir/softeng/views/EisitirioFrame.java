@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -16,6 +20,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import org.teipir.softeng.Printer;
+
 import java.awt.Component;
 
 public class EisitirioFrame extends JFrame{
@@ -24,6 +31,7 @@ public class EisitirioFrame extends JFrame{
 	private int thesi,tiposEisitiriou;
 	private double timi;
 	private Date wra;
+	private JPanel eisitPanel = new JPanel();
 
 	public EisitirioFrame(String anaxwrisi, String proorismos, Date wra, String date, int thesi, int tiposEisitiriou, double timi){
 		super("Εισιτήριο");
@@ -50,7 +58,7 @@ public class EisitirioFrame extends JFrame{
 	}
 	
 	private JComponent createEisitirioPanel() {
-		JPanel eisitPanel = new JPanel();
+		this.eisitPanel = new JPanel();
 		eisitPanel.setLayout(new BoxLayout(eisitPanel, BoxLayout.Y_AXIS));
 		eisitPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
@@ -157,11 +165,23 @@ public class EisitirioFrame extends JFrame{
 		JButton okButton = new JButton("Εκτύπωση");
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-		            public void run() {
-		            	//new LoginFrame();
-		            }
-		        });
+				PrinterJob pjob = PrinterJob.getPrinterJob();
+				PageFormat preformat = pjob.defaultPage();
+				preformat.setOrientation(PageFormat.LANDSCAPE);
+				PageFormat postformat = pjob.pageDialog(preformat);
+				//If user does not hit cancel then print.
+				if (preformat != postformat) {
+					okButton.setVisible(false);
+				    //Set print component
+				    pjob.setPrintable(new Printer(eisitPanel), postformat);
+				    if (pjob.printDialog()) {
+				        try {
+							pjob.print();
+						} catch (PrinterException e1) {
+							e1.printStackTrace();
+						}
+				    }
+				}
 			}
 		});
 		

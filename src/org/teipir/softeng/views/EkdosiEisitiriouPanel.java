@@ -141,6 +141,7 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		tiposPanel.add(foititikoButton);
 		buttonGroup.add(foititikoButton);
 		buttonGroup.add(kanonikoButton);
+		kanonikoButton.setSelected(true);
 		
 		return tiposPanel;
 	}
