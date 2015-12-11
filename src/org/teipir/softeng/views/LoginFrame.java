@@ -21,11 +21,12 @@ import javax.swing.SwingUtilities;
 
 import org.teipir.softeng.controllers.UserController;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends JFrame {
 	
 	private UserController userCtrl = new UserController();
 	
-	private JComboBox loginAsCombo = new JComboBox(new String[] {"Διαχειριστής","Ταμίας"});
+	private JComboBox<String> loginAsCombo = new JComboBox<>(new String[] {"Διαχειριστής","Ταμίας"});
 	private JTextField usernameField = new JTextField(20);
 	private JPasswordField passwordField = new JPasswordField(20);
 	
@@ -144,7 +145,7 @@ public class LoginFrame extends JFrame {
 			this.setVisible(false);
 			SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
-	            	MainFrame mainFrame = new MainFrame(mode);
+	            	new MainFrame(mode);
 	            }
 	        });
 		} else {

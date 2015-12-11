@@ -1,15 +1,12 @@
 package org.teipir.softeng.views;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -17,13 +14,14 @@ import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -34,16 +32,15 @@ import org.teipir.softeng.DateLabelFormatter;
 import org.teipir.softeng.controllers.DromologioController;
 import org.teipir.softeng.controllers.EisitirioController;
 import org.teipir.softeng.models.Dromologio;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 
+@SuppressWarnings("serial")
 public class EkdosiEisitiriouPanel extends JPanel{
 	
-	private JComboBox dromologiaCombo = new JComboBox();
+	private JComboBox<String> dromologiaCombo = new JComboBox<>();
 	
 	private List<String> theseis = new ArrayList<String>();
 	private Object[] theseisObj = setTheseis();
-	private JComboBox thesiCombo = new JComboBox(theseisObj);
+	private JComboBox<Object> thesiCombo = new JComboBox<>(theseisObj);
 	
 	private UtilDateModel model = new UtilDateModel();
 	private JRadioButton kanonikoButton = new JRadioButton("Κανονικό");

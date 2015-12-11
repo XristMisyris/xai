@@ -23,6 +23,7 @@ import javax.swing.SpinnerDateModel;
 
 import org.teipir.softeng.controllers.DromologioController;
 
+@SuppressWarnings("serial")
 public class AddDromologioPanel extends JPanel {
 	
 	private JTextField proorismosField = new JTextField(20);

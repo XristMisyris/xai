@@ -1,12 +1,11 @@
 package org.teipir.softeng.views;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
-import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.Date;
@@ -19,12 +18,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import org.teipir.softeng.Printer;
 
-import java.awt.Component;
-
+@SuppressWarnings("serial")
 public class EisitirioFrame extends JFrame{
 	
 	private String anaxwrisi,proorismos,date;

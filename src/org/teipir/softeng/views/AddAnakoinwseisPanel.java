@@ -4,10 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,13 +13,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.teipir.softeng.controllers.AnakoinwseisController;
-import org.teipir.softeng.controllers.DromologioController;
 
+@SuppressWarnings("serial")
 public class AddAnakoinwseisPanel extends JPanel{
 
 	private JTextField titlosField = new JTextField(20);

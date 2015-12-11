@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import org.teipir.softeng.views.AddDromologioPanel;
 import org.teipir.softeng.views.EkdosiEisitiriouPanel;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame{
 
 	private static final int DIAXIRISTIS_MODE = 0;

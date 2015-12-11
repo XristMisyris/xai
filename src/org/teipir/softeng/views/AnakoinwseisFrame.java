@@ -26,6 +26,7 @@ import org.teipir.softeng.models.Anakoinwsi;
 import java.awt.Font;
 import javax.swing.JSeparator;
 
+@SuppressWarnings("serial")
 public class AnakoinwseisFrame extends JFrame{
 	
 	private JFrame frame = this;
