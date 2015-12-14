@@ -14,16 +14,14 @@ public class SQLHelper {
 		try {
 			
 			// JDBC driver name and database URL
-			String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-			String DB_URL = "jdbc:mysql://83.212.118.22:3306/mixaniki?useUnicode=true&characterEncoding=utf8";
+			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+			final String DB_URL = "jdbc:mysql://83.212.118.22:3306/mixaniki?useUnicode=true&characterEncoding=utf8";
 			//  Database credentials
-			String USER = "sponz";
-			String PASS = "";
+			final String USER = "sponz";
+			final String PASS = "";
 			Class.forName(JDBC_DRIVER);
 			
-			System.out.println("Establising SQL Connection");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -35,7 +33,7 @@ public class SQLHelper {
 	}
 	
 	public static ResultSet executeQuery(String query, Connection conn){
-		Statement stmt = null;
+		Statement stmt;
 		
 		if (conn != null) {
 			try {
@@ -51,7 +49,7 @@ public class SQLHelper {
 	}
 	
 	public static boolean executeUpdate(String query, Connection conn){
-		Statement stmt = null;
+		Statement stmt;
 		
 		if (conn != null) {
 			try {
