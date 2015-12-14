@@ -1,6 +1,7 @@
 package org.teipir.softeng.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import org.teipir.softeng.controllers.AnakoinwseisController;
 
@@ -56,6 +58,7 @@ public class AddAnakoinwseisPanel extends JPanel{
 		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		component.add(label);
 		component.add(Box.createRigidArea(new Dimension(34, 0)));
+		titlosField.setBorder(new LineBorder(Color.BLACK));
 		component.add(titlosField);
 		return component;
 	}
@@ -70,6 +73,8 @@ public class AddAnakoinwseisPanel extends JPanel{
 		component.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		component.add(label);
 		component.add(Box.createRigidArea(new Dimension(33, 0)));
+		sxoliaTextArea.setBorder(new LineBorder(new Color(0, 0, 0)));
+		sxoliaTextArea.setWrapStyleWord(true);
 		sxoliaTextArea.setLineWrap(true);
 		sxoliaTextArea.setRows(10);
 		component.add(sxoliaTextArea);
