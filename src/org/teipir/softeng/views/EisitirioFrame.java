@@ -46,10 +46,6 @@ public class EisitirioFrame extends JFrame{
 
 	    getContentPane().add(this.createEisitirioPanel(), BorderLayout.CENTER);
 	    
-	    this.displayWindow();
-	}
-	
-	public void displayWindow() {
 		this.pack();
         this.setVisible(true);
 	}

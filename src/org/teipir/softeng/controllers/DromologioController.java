@@ -23,11 +23,9 @@ public class DromologioController {
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
-			System.out.println("Dromologio Prostethike");
 			return true;
 		}
 		else {
-			System.out.println("Error Inserting Dromologio");
 			return false;
 		}
 	}

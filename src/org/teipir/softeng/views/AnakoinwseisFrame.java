@@ -39,10 +39,6 @@ public class AnakoinwseisFrame extends JFrame{
 
 	    this.add(this.createAnakoinwseisPanel(), BorderLayout.CENTER);
 	    
-	    this.displayWindow();
-	}
-	
-	public void displayWindow() {
 		this.pack();
         this.setVisible(true);
 	}

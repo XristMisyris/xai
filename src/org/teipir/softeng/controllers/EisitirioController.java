@@ -19,11 +19,9 @@ public class EisitirioController {
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
-			System.out.println("Eisitirio Prostethike");
 			return true;
 		}
 		else {
-			System.out.println("Error Inserting Eisitirio");
 			return false;
 		}
 	}

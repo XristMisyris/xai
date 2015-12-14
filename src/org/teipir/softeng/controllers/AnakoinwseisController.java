@@ -24,11 +24,9 @@ public class AnakoinwseisController {
 		
 		boolean result = SQLHelper.executeUpdate(query, conn);
 		if(result == true){
-			System.out.println("Anakoinwsi Prostethike");
 			return true;
 		}
 		else {
-			System.out.println("Error Inserting Anakoinwsi");
 			return false;
 		}
 	}

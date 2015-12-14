@@ -38,12 +38,8 @@ public class LoginFrame extends JFrame {
 
 	    this.add(this.createLoginPanel(), BorderLayout.CENTER);
 	    
-	    this.displayWindow();
-	}
-	
-	public void displayWindow() {
 		this.pack();
-        this.setVisible(true);
+		this.setVisible(true);
 	}
 	
 	private JComponent createLoginPanel() {
@@ -118,7 +114,6 @@ public class LoginFrame extends JFrame {
 		JButton cancelButton = new JButton("Έξοδος");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Exit Program!");
 				System.exit(0);
 			}
 		});
@@ -141,7 +136,6 @@ public class LoginFrame extends JFrame {
 			isValidUser = userCtrl.isValidTamias(username, password);
 		}
 		if(isValidUser) {
-			System.out.println("User is valid");
 			this.setVisible(false);
 			SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {

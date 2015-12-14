@@ -6,17 +6,17 @@ import javax.swing.UIManager;
 import org.teipir.softeng.views.AnakoinwseisFrame;
 
 
-public class Main {
+public class MainEisitiriaYperastikwn {
 
-	private static void ShowGUI() {
+	private static void showGUI() {
 		new AnakoinwseisFrame();
     }
 	
-	public static void main(String[] args) {
+	public static void main() {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	UIManager.put("swing.boldMetal", Boolean.FALSE);
-            	ShowGUI();
+            	showGUI();
             }
         });
 	}
