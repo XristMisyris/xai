@@ -1,32 +1,20 @@
 package org.teipir.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.teipir.softeng.controllers.DromologioController;
 import org.teipir.softeng.models.Dromologio;
 
 public class TestDromologia {
 	
-	private DromologioController dcont = new DromologioController();
-
-	@Before
-	public void setUp() throws Exception {
-		this.dcont = new DromologioController();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
+	private DromologioController dcont =  new DromologioController();
 
 	@Test
 	public void testGetDromologia() {
-		DromologioController dcont = new DromologioController();
-		
 		List<Dromologio> dromologia = dcont.getAllDromologia();
 		assertFalse(dromologia.isEmpty());
 	}
