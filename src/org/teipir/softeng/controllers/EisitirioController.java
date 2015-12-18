@@ -1,7 +1,11 @@
 package org.teipir.softeng.controllers;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.teipir.softeng.SQLHelper;
 import org.teipir.softeng.views.EisitirioFrame;
@@ -28,6 +32,25 @@ public class EisitirioController {
 
 	public void createEisitirioFrame(String anaxwrisi, String proorismos,Date wra, String date, int thesi, int tiposEisitiriou, double timi) {
 		new EisitirioFrame(anaxwrisi,proorismos,wra,date,thesi,tiposEisitiriou,timi);
+	}
+	
+	public List<String> checkAvailableSeats(String anaxwrisi,String proorismos,String reportDate){
+		List<String> theseis = new ArrayList<String>();
+		
+		String query = "SELECT thesi FROM eisitiria WHERE anaxwrisi='" + anaxwrisi + "' AND proorismos='" + proorismos + "' AND date='" + reportDate + "' ";
+		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
+		
+		if (resultSet != null) {
+			try {
+				while (resultSet.next()) {
+					theseis.add(resultSet.getString("thesi"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return theseis;
 	}
 
 }

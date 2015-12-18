@@ -38,8 +38,8 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	
 	private JComboBox<String> dromologiaCombo = new JComboBox<>();
 	
-	private List<String> theseis = new ArrayList<String>();
-	private Object[] theseisObj = setTheseis();
+	private List<String> unavailableSeats = new ArrayList<String>();
+	private Object[] theseisObj = {};
 	private JComboBox<Object> thesiCombo = new JComboBox<>(theseisObj);
 	
 	private UtilDateModel model = new UtilDateModel();
@@ -55,7 +55,6 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	public EkdosiEisitiriouPanel() {
 		super();
 		
-		this.setTheseis();
 		this.add(this.createEkdosiPanel(), BorderLayout.CENTER);
 	}
 	
@@ -109,16 +108,16 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		dromologiaPanel.add(dromologiaCombo);
 		
 		dromologiaCombo.addPopupMenuListener(new PopupMenuListener(){
-			 public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
-				 //System.out.println("Becoming Visible");
-				 setUpComponents();
-			 }
-			 public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
-				 //System.out.println("Becoming InVisible");
-			 }
-			 public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
-				 //System.out.println("Becoming Visible");
-			 }
+			public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming Visible");
+				setUpComponents();
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming InVisible");
+			}
+			public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming Visible");
+			}
 		});
 		
 		return dromologiaPanel;
@@ -184,6 +183,31 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		thesiPanel.add(Box.createRigidArea(new Dimension(39, 0)));
 		thesiPanel.add(thesiCombo);
 		
+		thesiCombo.addPopupMenuListener(new PopupMenuListener(){
+			public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming Visible");
+				
+				thesiCombo.removeAllItems();
+
+				EisitirioController ec = new EisitirioController();
+				
+			    int selectedDromologio = dromologiaCombo.getSelectedIndex();
+				    
+				String anaxwrisi = dromologia.get(selectedDromologio).getAnaxwrisi();
+				String proorismos = dromologia.get(selectedDromologio).getProorismos();
+				String reportDate = datePicker.getJFormattedTextField().getText();
+				   
+				unavailableSeats = ec.checkAvailableSeats(anaxwrisi,proorismos,reportDate);
+				setTheseis();
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming InVisible");
+			}
+			public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
+				//System.out.println("Becoming Visible");
+			}
+		});
+		
 		return thesiPanel;
 	}
 
@@ -196,7 +220,8 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    int selectedDromologio = dromologiaCombo.getSelectedIndex();
-			    int thesi = thesiCombo.getSelectedIndex() + 1;
+			    Object thesiObj = thesiCombo.getItemAt(thesiCombo.getSelectedIndex());
+			    int thesi = Integer.parseInt(thesiObj.toString());
 			    
 			    String anaxwrisi = dromologia.get(selectedDromologio).getAnaxwrisi();
 			    String proorismos = dromologia.get(selectedDromologio).getProorismos();
@@ -242,11 +267,16 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		return component;
 	}
 	
-	private Object[] setTheseis(){
-		for(int i=1; i<=49; i++){
-			theseis.add(Integer.toString(i));
+	private void setTheseis(){
+		for(int i = 1; i <= 49; i++){
+			thesiCombo.addItem(makeObj(Integer.toString(i)));
 		}
-		Object[] obj = theseis.toArray();
-		return obj;
+		for(int i = 0; i < unavailableSeats.size(); i++){
+			thesiCombo.removeItemAt(Integer.parseInt(unavailableSeats.get(i)));
+		}
+	}
+	
+	private Object makeObj(final String item)  {
+		return new Object() { public String toString() { return item; } };
 	}
 }

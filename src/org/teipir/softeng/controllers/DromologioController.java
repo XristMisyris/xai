@@ -41,7 +41,7 @@ public class DromologioController {
 					String proorismos = resultSet.getString("proorismos");
 					Time wra = resultSet.getTime("wra");
 					double kanonikiTimi = resultSet.getDouble("kanonikiTimi");
-					double foititikiTimi = resultSet.getDouble("kanonikiTimi");
+					double foititikiTimi = resultSet.getDouble("foititikiTimi");
 					
 					Dromologio drom = new Dromologio();
 					
