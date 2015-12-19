@@ -271,8 +271,17 @@ public class EkdosiEisitiriouPanel extends JPanel{
 		for(int i = 1; i <= 49; i++){
 			thesiCombo.addItem(makeObj(Integer.toString(i)));
 		}
-		for(int i = 0; i < unavailableSeats.size(); i++){
-			thesiCombo.removeItemAt(Integer.parseInt(unavailableSeats.get(i)));
+		
+		int temp = 0;
+		for(int i = 0; i < thesiCombo.getItemCount() - temp; i++){
+			String currentThesi = thesiCombo.getItemAt(i).toString();
+			for(int z = 0; z < unavailableSeats.size(); z++){
+				if(currentThesi.equals(unavailableSeats.get(z))){
+					thesiCombo.removeItemAt(i);
+					temp++;
+					i--;
+				}
+			}
 		}
 	}
 	
