@@ -26,6 +26,8 @@ public class AddAnakoinwseisPanel extends JPanel{
 	private JTextField titlosField = new JTextField(20);
 	private JTextArea sxoliaTextArea = new JTextArea();
 	
+	private AnakoinwseisController anakoinwsi = new AnakoinwseisController();
+	
 	public AddAnakoinwseisPanel() {
 		super();
 
@@ -94,7 +96,6 @@ public class AddAnakoinwseisPanel extends JPanel{
 				String title = titlosField.getText();
 				String sxolio  = sxoliaTextArea.getText();
 				
-				AnakoinwseisController anakoinwsi = new AnakoinwseisController();
 				boolean prostethike = anakoinwsi.addAnakoinwsi(title,sxolio);
 				
 				if (prostethike == true){

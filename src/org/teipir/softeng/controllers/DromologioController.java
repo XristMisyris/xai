@@ -13,6 +13,7 @@ import org.teipir.softeng.models.Dromologio;
 public class DromologioController {
 	
 	private Connection conn;
+	private List<Dromologio> dromologia = new ArrayList<Dromologio>();
 
 	public DromologioController() {
 		conn = SQLHelper.connectDB();
@@ -31,7 +32,6 @@ public class DromologioController {
 	}
 	
 	public List<Dromologio> getAllDromologia() {
-		List<Dromologio> dromologia = new ArrayList<Dromologio>();
 		String query = "SELECT anaxwrisi,proorismos,wra,kanonikiTimi,foititikiTimi FROM dromologia";
 		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
 		if (resultSet != null) {

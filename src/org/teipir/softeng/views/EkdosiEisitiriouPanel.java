@@ -51,6 +51,9 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JPanel ekdosiPanel = new JPanel();
 	
+	private EisitirioController ec = new EisitirioController();
+	private DromologioController dr = new DromologioController();
+	
 	
 	public EkdosiEisitiriouPanel() {
 		super();
@@ -60,8 +63,6 @@ public class EkdosiEisitiriouPanel extends JPanel{
 	
 	private void setUpComponents() {
 		dromologiaCombo.removeAllItems();
-	
-		DromologioController dr = new DromologioController();
 		
 		this.dromologia = dr.getAllDromologia();
 		for (Dromologio dromologio : dromologia) {
@@ -188,8 +189,6 @@ public class EkdosiEisitiriouPanel extends JPanel{
 				//System.out.println("Becoming Visible");
 				
 				thesiCombo.removeAllItems();
-
-				EisitirioController ec = new EisitirioController();
 				
 			    int selectedDromologio = dromologiaCombo.getSelectedIndex();
 				    
@@ -245,10 +244,9 @@ public class EkdosiEisitiriouPanel extends JPanel{
 			    else
 			    	timi = dromologia.get(selectedDromologio).getFoititikiTimi();
 			    
-				EisitirioController dromologio = new EisitirioController();
-				boolean prostethike = dromologio.addEisitirio(anaxwrisi,proorismos,reportDate,thesi,tiposEisitirio,timi);
+				boolean prostethike = ec.addEisitirio(anaxwrisi,proorismos,reportDate,thesi,tiposEisitirio,timi);
 				
-				dromologio.createEisitirioFrame(anaxwrisi,proorismos,wra,reportDate,thesi,tiposEisitirio,timi);
+				ec.createEisitirioFrame(anaxwrisi,proorismos,wra,reportDate,thesi,tiposEisitirio,timi);
 			    
 				if (prostethike == false){
 					JOptionPane.showMessageDialog(framePanel,"Σφάλμα! Δεν ήταν δυνατή η έκδοση εισιτηρίου",

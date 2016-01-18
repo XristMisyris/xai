@@ -8,11 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.teipir.softeng.SQLHelper;
+import org.teipir.softeng.models.Eisitirio;
 import org.teipir.softeng.views.EisitirioFrame;
 
 public class EisitirioController {
 	
 	private Connection conn;
+	private List<String> theseis = new ArrayList<String>();
+	private List<Eisitirio> eisitiria = new ArrayList<Eisitirio>();
 
 	public EisitirioController() {
 		conn = SQLHelper.connectDB();
@@ -34,9 +37,37 @@ public class EisitirioController {
 		new EisitirioFrame(anaxwrisi,proorismos,wra,date,thesi,tiposEisitiriou,timi);
 	}
 	
+	public List<Eisitirio> getAllEisitiria() {
+		String query = "SELECT anaxwrisi,proorismos,date,thesi,tiposEisitiriou,timi FROM eisitiria";
+		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
+		if (resultSet != null) {
+			try {
+				while (resultSet.next()) {
+					String anaxwrisi = resultSet.getString("anaxwrisi");
+					String proorismos = resultSet.getString("proorismos");
+					Date date = resultSet.getDate("date");
+					int thesi = resultSet.getInt("thesi");
+					int tipos = resultSet.getInt("tiposEisitiriou");
+					double timi = resultSet.getDouble("timi");
+					
+					Eisitirio eisit = new Eisitirio();
+					
+					eisit.setAnaxwrisi(anaxwrisi);
+					eisit.setProorismos(proorismos);
+					eisit.setDate(date.toString());
+					eisit.setArithmosThesis(thesi);
+					eisit.setTiposEisitiriou(tipos);
+					eisit.setTimi(timi);
+					eisitiria.add(eisit);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return eisitiria;
+	} 
+	
 	public List<String> checkAvailableSeats(String anaxwrisi,String proorismos,String reportDate){
-		List<String> theseis = new ArrayList<String>();
-		
 		String query = "SELECT thesi FROM eisitiria WHERE anaxwrisi='" + anaxwrisi + "' AND proorismos='" + proorismos + "' AND date='" + reportDate + "' ";
 		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
 		

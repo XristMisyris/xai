@@ -13,6 +13,7 @@ import org.teipir.softeng.models.Anakoinwsi;
 public class AnakoinwseisController {
 	
 	private Connection conn;
+	private List<Anakoinwsi> anakoinwseis = new ArrayList<Anakoinwsi>();
 	
 	public AnakoinwseisController() {
 		conn = SQLHelper.connectDB();
@@ -32,7 +33,6 @@ public class AnakoinwseisController {
 	}
 
 	public List<Anakoinwsi> getAllAnakoinwseis() {
-		List<Anakoinwsi> anakoinwseis = new ArrayList<Anakoinwsi>();
 		String query = "SELECT title,sxolio,date FROM anakoinwseis";
 		ResultSet resultSet = SQLHelper.executeQuery(query, conn);
 		if (resultSet != null) {

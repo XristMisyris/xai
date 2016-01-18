@@ -31,6 +31,8 @@ public class AnakoinwseisFrame extends JFrame{
 	
 	private JFrame frame = this;
 	
+	private AnakoinwseisController ac = new AnakoinwseisController();
+	
 	public AnakoinwseisFrame() {
 		super("Ανακοινώσεις");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,8 +49,6 @@ public class AnakoinwseisFrame extends JFrame{
 		JPanel anakPanel = new JPanel();
 		anakPanel.setLayout(new BoxLayout(anakPanel, BoxLayout.Y_AXIS));
 		anakPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		
-		AnakoinwseisController ac = new AnakoinwseisController();
 
 		List<Anakoinwsi> anakinwseis = ac.getAllAnakoinwseis();
 		Collections.reverse(anakinwseis);

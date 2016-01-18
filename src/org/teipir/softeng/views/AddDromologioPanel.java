@@ -32,6 +32,8 @@ public class AddDromologioPanel extends JPanel {
 	private JTextField foititikoField = new JTextField(20);
 	private JSpinner timeSpinner = new JSpinner( new SpinnerDateModel() );
 	
+	DromologioController dromologio = new DromologioController();
+	
 	public AddDromologioPanel() {
 		super();
 
@@ -151,7 +153,6 @@ public class AddDromologioPanel extends JPanel {
 				DateFormat dateFormat = new SimpleDateFormat("HH:mm",localeObject);
 				String wra = dateFormat.format(time);
 				
-				DromologioController dromologio = new DromologioController();
 				boolean prostethike = dromologio.addDromologio(anaxwrisi,proorismos,wra,kanonikiTimi,foititikiTimi);
 				
 				if (prostethike == true){
