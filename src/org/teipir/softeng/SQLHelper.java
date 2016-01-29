@@ -15,9 +15,9 @@ public class SQLHelper {
 			
 			// JDBC driver name and database URL
 			final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-			final String DB_URL = "jdbc:mysql://83.212.118.22:3306/mixaniki?useUnicode=true&characterEncoding=utf8";
+			final String DB_URL = "jdbc:mysql://localhost:3306/mixaniki?useUnicode=true&characterEncoding=utf8";
 			//  Database credentials
-			final String USER = "sponz";
+			final String USER = "";
 			final String PASS = "";
 			Class.forName(JDBC_DRIVER);
 			
